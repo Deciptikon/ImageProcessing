@@ -11,8 +11,10 @@ export class listImage {
     this.listSourceImage = [];
     this.listImg = [];
     this.listBtt = [];
-    this.addingBtt = null;
     this.currentIndex = null;
+
+    this.addingBtt = null;
+    this.origBtt = null;
 
     this.initLocalCanvas();
   }
@@ -43,6 +45,11 @@ export class listImage {
 
     this.addingBtt.setPosition(xbtt - this.shift, ybtt);
     this.addingBtt.draw(this.ctx);
+    xbtt += this.addingBtt.getSize().w + this.space;
+
+    const border = this.currentIndex === null ? true : false;
+    this.origBtt.setPosition(xbtt - this.shift, ybtt);
+    this.origBtt.draw(this.ctx, border);
 
     this.ctx.restore();
   }
@@ -55,6 +62,7 @@ export class listImage {
       });
     }
     this.addingBtt.action(x, y, isClicked);
+    this.origBtt.action(x, y, isClicked);
   }
 
   drawOnContext(ctx) {
@@ -69,6 +77,14 @@ export class listImage {
 
   setAddingBtt(btt) {
     this.addingBtt = btt;
+  }
+
+  setOrigBtt(btt) {
+    this.origBtt = btt;
+  }
+
+  getOrigBtt() {
+    return this.origBtt;
   }
 
   getPosition() {
@@ -97,6 +113,8 @@ export class listImage {
         if (!(this.currentIndex < this.listBtt.length)) {
           this.currentIndex = null;
         }
+      } else {
+        this.currentIndex = null;
       }
       if (this.listBtt == null) {
         this.listBtt = [];

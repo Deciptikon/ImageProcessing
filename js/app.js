@@ -74,20 +74,38 @@ function preloadImages() {
 
         listImg.pushBtt(ib0);
 
-        let addib0 = new ImageButton({
+        let addib = new ImageButton({
           x: null,
           y: null,
           width: 100,
           height: 100,
           margin: 10,
           image: loadedImages[`plus`],
-          onClick: () => {
+          onClick: function () {
             console.log("Добавляем новую картинку!");
             listImg.pushBtt(creationBtt());
             listImg.setLastCurrentIndex();
           },
         });
-        listImg.setAddingBtt(addib0);
+        listImg.setAddingBtt(addib);
+
+        let origib = new ImageButton({
+          x: null,
+          y: null,
+          width: 100,
+          height: 100,
+          margin: 10,
+          image: null,
+          onClick: function () {
+            console.log("Восстановленный оригинал!");
+            listImg.setCurrentIndex(null);
+            //
+          },
+        });
+        origib.setStylesColor(`rgb(${100}, ${255}, ${100})`, `default`);
+        origib.setStylesColor(`rgb(${100}, ${200}, ${100})`, `hover`);
+        origib.setStylesColor(`rgb(${100}, ${100}, ${100})`, `active`);
+        listImg.setOrigBtt(origib);
 
         animate();
         console.log("animate() -->");
