@@ -12,6 +12,7 @@ export class listImage {
     this.listImg = [];
     this.listBtt = [];
     this.addingBtt = null;
+    this.currentIndex = null;
 
     this.initLocalCanvas();
   }
@@ -32,9 +33,10 @@ export class listImage {
     let xbtt = this.margin;
     const ybtt = this.margin;
     if (this.listBtt.length > 0) {
-      this.listBtt.forEach((btt) => {
+      this.listBtt.forEach((btt, i) => {
+        const border = i === this.currentIndex ? true : false;
         btt.setPosition(xbtt - this.shift, ybtt);
-        btt.draw(this.ctx);
+        btt.draw(this.ctx, border);
         xbtt += btt.getSize().w + this.space;
       });
     }
@@ -92,10 +94,26 @@ export class listImage {
         for (let i = index; i < this.listBtt.length; i++) {
           this.listBtt[i].setIndexForDelete(i);
         }
+        if (!(this.currentIndex < this.listBtt.length)) {
+          this.currentIndex = null;
+        }
       }
       if (this.listBtt == null) {
         this.listBtt = [];
+        this.currentIndex = null;
       }
     }
+  }
+
+  setCurrentIndex(index) {
+    this.currentIndex = index;
+  }
+
+  setLastCurrentIndex() {
+    this.currentIndex = this.listBtt.length - 1;
+  }
+
+  getCurrentIndex() {
+    return this.currentIndex;
   }
 }

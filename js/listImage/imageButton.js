@@ -41,7 +41,7 @@ export class ImageButton {
   }
 
   // Отрисовка кнопки
-  draw(ctx, x = null, y = null) {
+  draw(ctx, border = false) {
     this.ctx.save();
     const style = this.styles[this.state];
 
@@ -56,6 +56,12 @@ export class ImageButton {
         this.width - 2 * this.margin,
         this.height - 2 * this.margin // Размер на экране
       );
+    }
+
+    if (border) {
+      this.ctx.strokeStyle = "black";
+      this.ctx.lineWidth = 4;
+      this.ctx.strokeRect(2, 2, this.width - 4, this.height - 4);
     }
 
     if (this.listSubButton.length > 0) {

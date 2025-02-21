@@ -44,9 +44,10 @@ function preloadImages() {
             height: 100,
             margin: 5,
             image: null,
-            onClick: () => {
-              console.log("Выбрана картинка!");
-              //
+            onClick: function () {
+              const i = this.getIndexForDelete();
+              console.log(`Выбрана картинка #${i}`);
+              listImg.setCurrentIndex(i);
             },
           });
           let isb0 = new ImageButton({
@@ -59,7 +60,7 @@ function preloadImages() {
             onClick: function () {
               const i = this.getIndexForDelete();
               console.log(`Удаляем картинку #${i}`);
-              listImg.deleteBtt(this.getIndexForDelete());
+              listImg.deleteBtt(i);
             },
           });
           //isb0.setStylesColor(`rgb(${100}, ${255}, ${100})`, `default`);
@@ -83,6 +84,7 @@ function preloadImages() {
           onClick: () => {
             console.log("Добавляем новую картинку!");
             listImg.pushBtt(creationBtt());
+            listImg.setLastCurrentIndex();
           },
         });
         listImg.setAddingBtt(addib0);
