@@ -1,5 +1,7 @@
 import { listImage } from "./listImage/listImage.js";
 import { ImageButton } from "./listImage/imageButton.js";
+import { actionBar } from "./actionBar/actionBar.js";
+import { imageEditor } from "./imageEditor/imageEditor.js";
 import { input } from "./inputManager.js";
 
 const FPS = 30.0;
@@ -18,10 +20,21 @@ const ctx = canvas.getContext("2d");
 let needUpdate = true;
 
 let listImg = new listImage({ x: 0, y: 0 }, { w: canvas.width, h: 130 });
+let actBar = new actionBar(listImg.getLeftBottomPoint(), {
+  w: canvas.width,
+  h: 60,
+});
+let imgEditor = new imageEditor(actBar.getLeftBottomPoint(), {
+  w: canvas.width,
+  h: canvas.height - actBar.getLeftBottomPoint().y,
+});
 
 const assets = {
   cross: "./image/cross.png",
   plus: "./image/plus.png",
+  triangle: "./image/triangle.png",
+  quadro: "./image/quadro.png",
+  load: "./image/load.png",
 };
 
 const loadedImages = {};
@@ -107,6 +120,50 @@ function preloadImages() {
         origib.setStylesColor(`rgb(${100}, ${100}, ${100})`, `active`);
         listImg.setOrigBtt(origib);
 
+        actBar.pushBttGA(
+          new ImageButton({
+            x: 0,
+            y: 0,
+            width: 50,
+            height: 50,
+            margin: 3,
+            image: loadedImages[`triangle`],
+            onClick: function () {
+              this.flag = !this.flag;
+              this.image = this.flag
+                ? loadedImages[`quadro`]
+                : loadedImages[`triangle`];
+              console.log(`Стартуем ГА ${this.flag}`);
+            },
+          })
+        );
+
+        actBar.pushBttGA(
+          new ImageButton({
+            x: 0,
+            y: 0,
+            width: 50,
+            height: 50,
+            margin: 3,
+            image: loadedImages[`load`],
+            onClick: function () {
+              console.log(`Скачать особи`);
+            },
+          })
+        );
+
+        actBar.setStylesAllBttGA({
+          default: {
+            fill: `rgb(${100}, ${100}, ${255})`,
+          },
+          hover: {
+            fill: `rgb(${0}, ${0}, ${255})`,
+          },
+          active: {
+            fill: `rgb(${200}, ${200}, ${255})`,
+          },
+        });
+
         animate();
         console.log("animate() -->");
       }
@@ -132,7 +189,12 @@ function animate() {
     //img.onload = function () {};
     //ctx.drawImage(loadedImages[`cross`], 100, 100, 100, 100);
     listImg.action(input.mouse.x, input.mouse.y, input.leftClick);
+    actBar.action(input.mouse.x, input.mouse.y, input.leftClick);
+    imgEditor.action(input.mouse.x, input.mouse.y, input.leftClick);
+
     listImg.drawOnContext(ctx);
+    actBar.drawOnContext(ctx);
+    imgEditor.drawOnContext(ctx);
     //ib0.action(input.mouse.x, input.mouse.y, input.leftDown);
     //ib0.draw(ctx);
     input.resetClick();

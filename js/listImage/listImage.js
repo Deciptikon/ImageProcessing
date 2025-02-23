@@ -55,7 +55,7 @@ export class listImage {
   }
 
   action(x, y, isClicked) {
-    console.log(`this.listBtt.length = ${this.listBtt.length}`);
+    //console.log(`this.listBtt.length = ${this.listBtt.length}`);
     if (this.listBtt.length > 0) {
       this.listBtt.forEach((btt) => {
         btt.action(x, y, isClicked);
@@ -133,5 +133,9 @@ export class listImage {
 
   getCurrentIndex() {
     return this.currentIndex;
+  }
+
+  getLeftBottomPoint() {
+    return { x: this.position.x, y: this.position.y + this.size.h };
   }
 }

@@ -9,6 +9,7 @@ export class ImageButton {
     this.onClick = options.onClick;
     this.listSubButton = [];
     this.indexForDelete = null;
+    this.flag = false;
 
     // Стили для разных состояний
     this.styles = {
@@ -91,7 +92,7 @@ export class ImageButton {
   }
 
   action(x, y, isClicked) {
-    console.log(`x=${x}, y=${y}, isClicked=${isClicked}`);
+    //console.log(`x=${x}, y=${y}, isClicked=${isClicked}`);
     if (this.isPointInside(x, y)) {
       let subResult = false;
       if (this.listSubButton.length > 0) {
@@ -118,7 +119,7 @@ export class ImageButton {
   }
 
   updateState(newState) {
-    console.log(`newState=${newState}`);
+    //console.log(`newState=${newState}`);
     this.state = newState;
   }
 

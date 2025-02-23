@@ -43,10 +43,10 @@ export class InputManager {
 
       if (e.button === 0) {
         this.leftDown = true;
-        console.log("Левая кнопка");
+        //console.log("Левая кнопка");
       } else if (e.button === 2) {
         this.rightDown = true;
-        console.log("Правая кнопка");
+        //console.log("Правая кнопка");
       }
     });
 
@@ -59,10 +59,10 @@ export class InputManager {
 
       if (e.button === 0) {
         this.leftUp = true;
-        console.log("Левая кнопка");
+        //console.log("Левая кнопка");
       } else if (e.button === 2) {
         this.rightUp = true;
-        console.log("Правая кнопка");
+        //console.log("Правая кнопка");
       }
       this.leftDown = false;
       this.rightDown = false;
